@@ -1,0 +1,169 @@
+** Bugs **
+
+* "case sensitive" (BOKMAL)
+
+* Småting:
+ - "BM-korpus: Hvorfor kan vi ikke søke på sammensetninger lenger?"
+ - bokmål: ikke "detaljer", men heller: "titler, større verk" vs. "titler, mindre verk"
+ - søke på tegnsetting fra meny
+
+* OMC-bugs (fra Joel)
+
+* "search within"
+
+* show_context.cgi
+  - "author" is missing
+  - check for applicability of class and author query before executing SQL
+
+
+
+
+** Fixes **
+
+* resultatbehandling
+  - når man lagrer: mulighet for "append"
+  - kode enkeltresultater
+  - statistikk basert på koding av enkeltresultater
+  - fellesannoteringer (fx. taggerfeil) vs. brukerspesifikke annoteringer
+  - skille med bruker-id
+  - flere ulike fritekstsett
+  - mer info per annotering
+  - basert på korp-posisjon
+  - statistikk for enkelt-koding
+    - eksportere annotering som tab/excel-fil
+    - for alle som har en verdi i ett sett
+    - kontrast
+	- alle andre tokens/setninger (i korpus)
+	- andre verdier
+    - hva skal telles?
+	- hvor mange annotert x, hvor mange y
+	- egenskapene til ord/setninger med en type annotering
+
+
+* make dist: inkluder et test-korpus 
+	- reg-fil
+	- sql-fil for å opprette og fylle database
+
+* mkdir i "hits"
+
+* "case" er blitt et keyword i mysql; vi må forandre
+
+* download.cgi -> gammel databasestruktur
+
+* bestemme om vi skal ha norsk eller engelsk i TODO.txt ...
+
+* lage standard-DB (med fx. "annotations"-tabell)
+  - inn i eksisterende korpora
+
+* menyer må oppdateres med ADDSTRING (etter nota.js)
+
+* oppdater dokumentasjon
+
+* wordcount i nota
+
+* navngitte, lagrede søk
+
+* faktisk bruke språkkoder fra <corpusname>.conf.js
+
+* search on segments of compounds
+
+* use GrayBox for pop-ups: http://orangoo.com/labs/GreyBox/
+
+* setningsgrenser: her er det noe muffins
+
+* introduce "project" instead of "corpus" where appropriate in documentation and source code
+
+
+
+
+** New features ** 
+
+- Dependens
+  - vis
+  - query
+  - statistikk (word sketch)
+
+* format
+  - format.cgi <tabfile> <format> <isheader>
+  - sort
+  - hvilken kolonne er "tallet"?
+  - rounding
+  - double newline = new file / new sheet / new graph?
+    - or: should they be new files at creation?
+  - html, excel, csv, tab, histogram, pie, hist-vert, graph (gnuplot), , pdf/png (via latex)
+  - stats2, cooc, coll, metadist, count, metadata, download
+
+* norsk vs. engelsk
+  - php,cgi,javascript (kan de forenes i en xml-fil?)
+
+* innlesning av datafiler burde være i Glossa.pm (og mye mer)
+
+* rewrite collocation/coocurance funcitons
+  - remove dependency on Text::NSP
+  - filters
+
+* manage subcorpora
+  - delete
+  - rename
+  - public/private
+
+* "preferences"
+  - searches in new window/tab
+  - form defaults: regexp, max, per page etc.
+
+* flertydighet
+  - nå støttet i CQP (?)
+
+* kolonne+attributt -> farge
+  - tagg
+  - metadata
+
+* word-align-highlight:
+ - encode as attribute of token (optionally as range/list)
+ - highlight when moving cursor
+ - use token-id to highlight
+
+* search-highlight
+  (- turned off since it only referred to lemma; feature request to do it properly sendt to cwb-list)
+  - new idea:
+   - use token-id to highlight
+   - db-lookup -> subcorpus
+   - search in subcorpus -> highlight-range: list of sentence-id + token range
+     - print per page
+   - javascript-ajax-call to get highlight-range
+     - javascript-function to apply to display page
+
+* utterance/sentence statistics
+
+* global collocations statistics
+
+* global lexical statistics for trigrams
+
+* filters on coll/cooc/lex-stat
+
+* interaktiv hjelp
+
+
+
+** Long term ideas **
+
+* port to Manatee and Xara
+
+* additional full "tokens". I.e. generate 
+ (("lemma='x' AND pos='y') OR ("lemma='w' AND pos='v') NOT ("lemma='m' AND pos='n'))
+
+
+
+
+
+** Adaptation **
+- NOTA, Big Brother, TAUS
+- BNC
+- Europarl
+- Bosnisk, makedonsk
+- big brother, taus, nota, bosnisk, sidaama, makedonsk, samisk, turistkorpus, upus
+
+
+
+
+

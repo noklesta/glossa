@@ -1,0 +1,262 @@
+#LyX 1.4.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 245
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\date{}
+\end_preamble
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing single
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Glossa Developer's Guide
+\end_layout
+
+\begin_layout Author
+Lars Nygaard, Anders Nøklestad
+\end_layout
+
+\begin_layout Abstract
+This document is meant as extra help for those who want to work on the Glossa
+ source code.
+ Corpus maintainers should refer to the 
+\emph on
+Glossa Administrators Manual
+\emph default
+.
+\end_layout
+
+\begin_layout Section
+Overview
+\end_layout
+
+\begin_layout Standard
+Glossa concists of three «clusters» of functions:
+\end_layout
+
+\begin_layout Itemize
+The main search window.
+\end_layout
+
+\begin_layout Itemize
+The concordance page.
+\end_layout
+
+\begin_layout Itemize
+The postprocessing functions: download, annotate, collocations, count etc.
+\end_layout
+
+\begin_layout Standard
+The Glossa source code is quite heterogenerous, and consists of the following
+ parts:
+\end_layout
+
+\begin_layout Itemize
+Patches to external libraries: DomMenu, CQP perl modules and Text::NSP modules.
+\end_layout
+
+\begin_layout Itemize
+PHP code to display the main search window (and some other windows, like
+ the lexical statistics interface).
+ The PHP code is quite simple, though unfortunately not very easy to grasp,
+ since it is mixed with javascript functions and cgi calls.
+\end_layout
+
+\begin_layout Itemize
+Javascript libraries with functions for the main search window and the concordan
+ce window, and a few functions for the postprocessing functions.
+\end_layout
+
+\begin_layout Itemize
+Javascript files containing configuration, in particular the menu files.
+\end_layout
+
+\begin_layout Itemize
+CGI (Perl) programs that does the actual searching and for the postprosessing
+ functions.
+\end_layout
+
+\begin_layout Itemize
+Auxilliary (Perl) programs for some common administration tasks: Creating
+ CQP corpora, populating metadata databases etc.
+\end_layout
+
+\begin_layout Standard
+In addition, corpus data needs to be encoded in a variety of ways:
+\end_layout
+
+\begin_layout Itemize
+Metadata as a MySQL database.
+\end_layout
+
+\begin_layout Itemize
+Text data as CQP corpora.
+\end_layout
+
+\begin_layout Itemize
+Configuration files and menues.
+\end_layout
+
+\begin_layout Section
+The search window
+\end_layout
+
+\begin_layout Standard
+The index.php progran takes the following parameters:
+\end_layout
+
+\begin_layout Itemize
+corpus (i.e.
+ "project") -- obligatory.
+\end_layout
+
+\begin_layout Itemize
+subcorpus (a user-specified, saved selection of text).
+\end_layout
+
+\begin_layout Itemize
+fullQuery (if set to "yes", a different interface is presented).
+\end_layout
+
+\begin_layout Standard
+The program then 
+\end_layout
+
+\begin_layout Itemize
+calls the appropriate .js configuration files.
+\end_layout
+
+\begin_layout Itemize
+the cgi program get_javascript_arrays_from_database.cgi with the appropriate
+ arguments, to get the data for populating the metadata widgets.
+\end_layout
+
+\begin_layout Itemize
+includes project specific (php) files for customization of the interface.
+\end_layout
+
+\begin_layout Standard
+The heavy lifting in this phase is done in the files dynamic_form.js and
+ meta.js, creating the dynamic interface for both query phrases and metadata.
+\end_layout
+
+\begin_layout Standard
+The query builder (for the text search itself) is based on a metaphor of
+ 'rows' and 'columns' where the first token in the first phrase is column
+ 1, row 1.
+\end_layout
+
+\begin_layout Standard
+A complex set of form input fields, some visible and some hidden, are created
+ and passed to the next phase.
+ The "_" character is used as a 
+\emph on
+separator
+\emph default
+ in the field names to create a hierachical data structure.
+ Some of the values are 'special', such as 'addstring', 'lemma' and 'case'.
+ 
+\end_layout
+
+\begin_layout Section
+The query program
+\end_layout
+
+\begin_layout Subsection
+Generating cqp query
+\end_layout
+
+\begin_layout Subsection
+Generating subcorpus 
+\end_layout
+
+\begin_layout Subsection
+Displaying concordances
+\end_layout
+
+\begin_layout Section
+Postprocessing scripts
+\end_layout
+
+\begin_layout Subsection
+UI
+\end_layout
+
+\begin_layout Subsection
+Computation/processing
+\end_layout
+
+\begin_layout Subsection
+Display
+\end_layout
+
+\begin_layout Section
+Auxilliary scripts (for corpus maintainance)
+\end_layout
+
+\begin_layout Section
+\start_of_appendix
+Architecture
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename dia.neat.ps
+	height 100col%
+	rotateAngle 270
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Overview of the Glossa system.
+ Blue boxes are source code.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
